@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework:spring-context:4.3.8.RELEASE'
+    compile 'org.springframework:spring-web:4.3.8.RELEASE'
+    compile 'org.springframework:spring-webmvc:4.3.8.RELEASE'
+    compile 'org.hibernate:hibernate-validator:5.0.2.Final'
+    compile fileTree(dir: '/Users/forjava/Documents/apache-tomcat-8.0.33/lib', include: '*.jar')
+    compile files('libs/lombok.jar')
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+    testCompile 'org.springframework:spring-test:4.3.8.RELEASE'
+}
