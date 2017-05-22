@@ -16,10 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dislash.spring.test.service.TestService;
+
 @Controller
 public class TestController {
 	@Autowired
 	MessageSource messages;
+	
+	@Autowired
+	TestService service;
 	
 	@RequestMapping(value="/doSomething", method=RequestMethod.GET)
 	@ResponseBody
