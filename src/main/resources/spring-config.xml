@@ -13,10 +13,26 @@
 	<context:component-scan base-package="com.dislash.spring.test" />
 	<mvc:annotation-driven />
 
-<!-- メッセージプロパティファイル -->
-<bean id="messageSource"
-	class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-	<property name="basename" value="classpath:messages"/>
-	<property name="defaultEncoding" value="UTF-8" />
-</bean>
+    <!-- メッセージプロパティファイル -->
+    <bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	    <property name="basename" value="classpath:messages"/>
+	    <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+
+    <!-- Thymeleaf -->
+	<bean id="templateResolver"
+		class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+		<property name="prefix" value="/WEB-INF/templates/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML5" />
+	</bean>
+	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+	</bean>
+	<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+		<property name="characterEncoding" value="UTF-8" />
+	</bean>
+
 </beans>
