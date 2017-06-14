@@ -2,16 +2,28 @@ package com.dislash.spring.test.controller;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
-@RunWith(PowerMockRunner.class)
+import com.dislash.spring.test.service.TestService;
+
 @PrepareForTest(PrivateSample.class)
 public class PrivateSampleTest {
+	@Mock
+	TestService service;
+	@InjectMocks
+	private PrivateSample instance;
+
+	@Before
+	public void initMocks() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Test
 	public void privateMethodTest() throws Exception {
@@ -37,8 +49,8 @@ public class PrivateSampleTest {
 
 	@Test(expected = IndexOutOfBoundsException.class)
 	public void privateMethodExceptionTest() throws Exception {
-		PrivateSample instance = PowerMockito.spy(new PrivateSample());
+		PowerMockito.when(service.getStr()).thenReturn("100");
 		PowerMockito.when(instance, "privateMethod", 200, "test").thenThrow(new IndexOutOfBoundsException());
-		PowerMockito.verifyPrivate(instance, Mockito.times(1)).invoke("privateMethod", 200, "test");
+		//PowerMockito.verifyPrivate(instance, Mockito.times(1)).invoke("privateMethod", 200, "test");
 	}
 }

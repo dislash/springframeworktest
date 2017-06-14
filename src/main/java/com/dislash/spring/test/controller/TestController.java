@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,24 +19,29 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dislash.spring.test.service.TestService;
 
+@Scope("prototype")
 @Controller
 public class TestController {
 	@Autowired
 	MessageSource messages;
-	
+
 	@Autowired
 	TestService service;
-	
-	@RequestMapping(value="/doSomething", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/doSomething", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<String> dosomething(@Valid @ModelAttribute ModelRequest modelRequest, BindingResult result, Model model) {
-	    if (result.hasErrors()) {
-	    	if(result.hasFieldErrors()) {
-	    		//TODO log
-	    		System.out.println("message:" + messages.getMessage("test1", new String[]{modelRequest.toString()}, Locale.getDefault()));
-	    		return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
-	    	}
-	    }
-	    return new ResponseEntity<String>(HttpStatus.OK);
+	public ResponseEntity<String> dosomething(@Valid @ModelAttribute ModelRequest modelRequest, BindingResult result,
+			Model model) {
+		if (result.hasErrors()) {
+			if (result.hasFieldErrors()) {
+				// TODO log
+				System.out.println("message:"
+						+ messages.getMessage("test1", new String[] { modelRequest.toString() }, Locale.getDefault()));
+				return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
+			}
+		}
+		service.sleep();
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+
 }

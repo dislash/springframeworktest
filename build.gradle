@@ -13,7 +13,9 @@ dependencies {
     compile 'org.thymeleaf:thymeleaf-spring4:3.0.6.RELEASE'
     compile 'org.thymeleaf:thymeleaf:3.0.6.RELEASE'
     compile 'org.hibernate:hibernate-validator:5.0.2.Final'
-    compile 'javax.inject:javax.inject:1'
+    compile 'org.springframework.security:spring-security-core:4.2.3.RELEASE'
+    compile 'org.springframework.security:spring-security-web:4.2.3.RELEASE'
+	compile 'org.springframework.security:spring-security-config:4.2.3.RELEASE'
     compile fileTree(dir: '/Users/forjava/Documents/apache-tomcat-8.0.33/lib', include: '*.jar')
     compile files('libs/lombok.jar')
     testCompile group: 'junit', name: 'junit', version: '4.+'
